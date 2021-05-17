@@ -25,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MenuHeaderTest extends BaseTest {
 
     private static final String pageTitle = "Urban Sports Club | Sports where and whenever you want";
+    private static final String pageTitleForLiveClasses = "Live Classes | Do Sports at your home | Urban Sports Club";
 
     @Test
     @Description("Open sports offer tab")
@@ -32,8 +33,8 @@ public class MenuHeaderTest extends BaseTest {
         HomePage homePage = openUrlAndAcceptCookies()
                 .clickSportsOffer();
 
-        assertThat("Sports offer title didn't display", getDriver().getTitle(), is(pageTitle));
-        assertThat("Sports offers is not displayed", homePage.isFitnessFamilySportsDisplayed(), is(true));
+        verifyPageTitle("Sports offer title didn't display", pageTitle);
+        verifyPage("Sports offers is not displayed", homePage.isFitnessFamilySportsDisplayed());
     }
 
     @Test
@@ -42,8 +43,8 @@ public class MenuHeaderTest extends BaseTest {
         HomePage homePage = openUrlAndAcceptCookies()
                 .clickHowToWork();
 
-        assertThat("How to open tab title didn't display", getDriver().getTitle(), is(pageTitle));
-        assertThat("How to open tab is not displayed", homePage.isHowItWorksDisplayed(), is(true));
+        verifyPageTitle("How to open tab title didn't display", pageTitle);
+        verifyPage("How to open tab is not displayed", homePage.isHowItWorksDisplayed());
     }
 
     @Test
@@ -52,18 +53,19 @@ public class MenuHeaderTest extends BaseTest {
         HomePage homePage = openUrlAndAcceptCookies()
                 .clickPrices();
 
-        assertThat("Price tab title didn't display", getDriver().getTitle(), is(pageTitle));
-        assertThat("Price is not displayed", homePage.isPriceTitleDisplayed(), is(true));
+        verifyPageTitle("Price tab title didn't display", pageTitle);
+        verifyPage("Price is not displayed", homePage.isPriceTitleDisplayed());
     }
 
     @Test
     @Description("Open and verify corporates sports tab")
     public void openAndVerifyCorporateSportsTab() {
+        String title = "Company Wellness made easy and flexible by Urban Sports Club";
         CorporateSportPage corporateSportPage = openUrlAndAcceptCookies()
                 .clickCorporatesSports();
 
-        assertThat("Corporates sports page title didn't display", getDriver().getTitle(), is("Company Wellness made easy and flexible by Urban Sports Club"));
-        assertThat("Corporates sports page is not displayed", corporateSportPage.validateCorporateSportPage(), is(true));
+        verifyPageTitle("Corporates sports page title didn't display", title);
+        verifyPage("Corporates sports page is not displayed", corporateSportPage.validateCorporateSportPage());
     }
 
     @Test
@@ -72,8 +74,8 @@ public class MenuHeaderTest extends BaseTest {
         PartnersPage partnersPage = openUrlAndAcceptCookies()
                 .clickPartners();
 
-        assertThat("Partners page title didn't display", getDriver().getTitle(), is("Urban Sports Club | Become a partner"));
-        assertThat("Partners page is not displayed", partnersPage.validatePartnersPage(), is(true));
+        verifyPageTitle("Partners page title didn't display", "Urban Sports Club | Become a partner");
+        verifyPage("Partners page is not displayed", partnersPage.validatePartnersPage());
     }
 
     @Test
@@ -82,8 +84,8 @@ public class MenuHeaderTest extends BaseTest {
         LiveClassesPage liveClassesPage = openUrlAndAcceptCookies()
                 .clickOnLiveClasses();
 
-        assertThat("Live classes page title didn't display", getDriver().getTitle(), is("Live Classes | Do Sports at your home | Urban Sports Club"));
-        assertThat("Live classes page is not displayed", liveClassesPage.validateLiveClassesPage(), is(true));
+        verifyPageTitle("Live classes page title didn't display", pageTitleForLiveClasses);
+        verifyPage("Live classes page is not displayed", liveClassesPage.validateLiveClassesPage());
     }
 
     @Test
@@ -92,7 +94,7 @@ public class MenuHeaderTest extends BaseTest {
         openUrlAndAcceptCookies()
                 .clickExploreLiveClass();
 
-        assertThat("Explore live classes title didn't display", getDriver().getTitle(), is("Live Classes | Do Sports at your home | Urban Sports Club"));
+        verifyPageTitle("Explore live classes title didn't display", pageTitleForLiveClasses);
     }
 
     @Test
@@ -103,5 +105,13 @@ public class MenuHeaderTest extends BaseTest {
 
         assertThat("Language Url didn't change", getDriver().getCurrentUrl(), containsString("de"));
         assertThat("Language didn't change", homePage.getLanguageInfo(), is("DE"));
+    }
+
+    private void verifyPageTitle(String errorMessage, String pageTitle) {
+        assertThat(errorMessage, getDriver().getTitle(), is(pageTitle));
+    }
+
+    private void verifyPage(String errorMessage, boolean fitnessFamilySportsDisplayed) {
+        assertThat(errorMessage, fitnessFamilySportsDisplayed, is(true));
     }
 }
