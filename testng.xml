@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Urban sports club Test Suite" parallel="tests" thread-count="5">
+    <test name="Urban sports club UI tests" parallel="methods">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.urbansports.uiTest.MenuHeaderTest"/>
+            <class name="com.urbansports.uiTest.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Urban sports club API tests" parallel="methods">
+        <classes>
+            <class name="com.urbansports.apiTest.UserPostsAndCommentsTest"/>
+        </classes>
+    </test>
+</suite>
